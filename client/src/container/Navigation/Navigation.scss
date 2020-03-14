@@ -1,0 +1,62 @@
+@import "../../assets/sass/mixins";
+.header {
+  display: flex;
+  height: 4rem;
+  align-items: stretch;
+  flex: 1;
+  position: relative;
+  &__icon {
+    height: 4rem;
+    width: 4rem;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+  }
+}
+.title {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2rem;
+  color: var(--color-pink-dark);
+  @include VerticalCenter;
+}
+
+.nav {
+  display: flex;
+  align-items: stretch;
+  margin-left: 5rem;
+  &__item {
+    position: relative;
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 6rem;
+    color: var(--color-grey-dark-1);
+    @include VerticalCenter;
+    &-active {
+      background-color: var(--color-pink-dark);
+    }
+    &:hover {
+    }
+  }
+  &__item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-pink-dark);
+    color: var(--color-white);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.2s, height 0.3s cubic-bezier(1, 0, 0, 1) 0.2s,
+      background-color 0.1s;
+    z-index: -1;
+  }
+  &__item:hover::before {
+    transform: scaleX(1);
+    height: 100%;
+    color: var(--color-white);
+  }
+}

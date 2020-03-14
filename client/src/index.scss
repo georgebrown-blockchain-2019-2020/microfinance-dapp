@@ -1,0 +1,40 @@
+@import "./assets/sass/button";
+@import "./assets/sass/form";
+@import "./assets/sass/mixins";
+:root {
+  --color-yellow-orange: #ffcc00;
+  --color-orange-dark: #ff6666;
+  --color-pink-dark: #cc0066;
+  --color-blue-sky: #66cccc;
+  --color-white: #fff;
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+  --shadow-light-1: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  --line: 1px solid var(--color-grey-light-2);
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; //1 rem = 10px, 10px/16px
+  background-color: var(--color-white);
+  margin: 0 5rem;
+}
+
+body {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-dark-2);
+}
