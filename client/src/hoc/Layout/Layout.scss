@@ -1,4 +1,8 @@
-.banner__img {
-  height: 30rem;
-  width: 100%;
+.banner {
+  background-image: url("../../assets/image/cover.jpg");
+  min-height: 600px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
