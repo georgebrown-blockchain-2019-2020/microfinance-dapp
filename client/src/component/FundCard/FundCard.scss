@@ -1,13 +1,23 @@
-.fund {
+.fund_item {
   display: flex;
+  width: 35rem;
   height: 30rem;
   background-color: var(--color-white);
   box-shadow: var(--shadow-light-1);
   flex-direction: column;
   justify-content: space-between;
+  justify-self: center;
+  animation: fadeOutDown 1s linear;
 }
-
-.fund_title {
+@keyframes fadeOutDown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fund_item_title {
   background-color: var(--color-blue-sky);
   text-align: center;
   text-transform: uppercase;
@@ -16,7 +26,7 @@
   padding: 1.5rem;
 }
 
-.fund_reason {
+.fund_item_reason {
   span {
     font-size: 1.5rem;
     font-weight: bold;
@@ -27,7 +37,7 @@
   font-style: italic;
 }
 
-.fund_money {
+.fund_item_money {
   position: relative;
   height: 3rem;
   display: flex;
@@ -52,7 +62,7 @@
   }
 }
 
-.fund_btn {
+.fund_item_btn {
   width: 100%;
   outline: none;
   position: relative;

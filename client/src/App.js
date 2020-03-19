@@ -20,8 +20,8 @@ function App() {
         }
       >
         <Switch>
-          <Route />
-          <Route />
+          <Route path="/" render={props => <FundPage {...props} />} />
+          <Redirect to="/" />
         </Switch>
       </Suspense>
     </Layout>
