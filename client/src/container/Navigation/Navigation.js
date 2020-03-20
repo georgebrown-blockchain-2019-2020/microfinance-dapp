@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Navigation.scss";
 import { NavLink } from "react-router-dom";
-import Icon from "../../assets/image/icon.png";
-function Navigation() {
+import DrawerToggle from "../../component/SideDrawer/DrawerToggle/DrawerToggle";
+import Logo from "../../component/Logo/Logo";
+function Navigation(props) {
   const stickDiv = React.createRef();
   console.log(stickDiv);
   const [headerClass, setHeaderClass] = useState(["header"]);
@@ -42,7 +43,12 @@ function Navigation() {
           account
         </NavLink>
       </nav>
-      <img src={Icon} alt="icon" className="header__icon" />
+      <DrawerToggle clicked={props.drawerToggleClicked} />
+      <div className="header__icon">
+        <Logo height="100%" />
+      </div>
+
+      {/* <img src={Icon} alt="icon" className="header__icon" /> */}
     </header>
   );
 }

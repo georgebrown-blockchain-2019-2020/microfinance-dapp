@@ -8,7 +8,7 @@ import "./AccountPage.scss";
 function AccountPage() {
   return (
     <div className="account">
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className="account__container">
         <Grid item lg={6} xs={12}>
           <Paper className="account__infor">
             <h2>Information</h2>
@@ -64,6 +64,19 @@ function AccountPage() {
               </Button>
             </h2>
             <Divider />
+            <h2>
+              Lender: <span>0x9d89b590218A45B43B7be1e58F7Bcc16EC45537A</span>
+            </h2>
+            <Button variant="contained" className="account__btn--pay">
+              Pay
+            </Button>
+            <h2>
+              Debtors:{" "}
+              <span>
+                0x9d89b590218A45B43B7be1e58F7Bcc16EC45537A,
+                0x9d89b590218A45B43B7be1e58F7Bcc16EC45537A
+              </span>
+            </h2>
           </Paper>
         </Grid>
       </Grid>
