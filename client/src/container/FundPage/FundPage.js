@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import FundCard from "../../component/FundCard/FundCard";
 import HeartIcon from "../../assets/image/heart-icon.gif";
+import BackDrop from "../../component/BackDrop/BackDrop";
+import Loading from "../../assets/image/loading-heart.svg";
 import "./FundPage.scss";
 const dummyData = [
   { name: "Tuan", reason: "poor", value: "1.0" },
@@ -33,6 +35,7 @@ function FundPage() {
         numList.push(i);
       }
       setPageNum(numList);
+      setLoading(false);
     }, 1000);
   }, []);
   // useEffect(() => {}, [currentPage]);
@@ -52,18 +55,24 @@ function FundPage() {
         {data.length !== 0 &&
           data
             .slice(currentPage * maxPage, (currentPage + 1) * maxPage)
-            .map(item => (
+            .map((item, index) => (
               <FundCard
                 name={item.name}
                 reason={item.reason}
                 value={item.value}
+                key={index}
               />
             ))}
       </div>
-      <div className="pagination">
-        <span>&laquo;</span>
-        {pageNum.length !== 0 &&
-          pageNum.map(number => (
+      {loading && (
+        <BackDrop show="true">
+          <img src={Loading} alt="spinner" className="spinner" />
+        </BackDrop>
+      )}
+      {pageNum.length !== 0 && (
+        <div className="pagination">
+          <span>&laquo;</span>
+          {pageNum.map(number => (
             <span
               key={number}
               className={currentPage === number ? "active" : ""}
@@ -72,8 +81,9 @@ function FundPage() {
               {number + 1}
             </span>
           ))}
-        <span>&raquo;</span>
-      </div>
+          <span>&raquo;</span>
+        </div>
+      )}
     </div>
   );
 }

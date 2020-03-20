@@ -7,11 +7,12 @@ import Loading from "./assets/image/loading-heart.svg";
 const FundPage = React.lazy(() => {
   return import("./container/FundPage/FundPage");
 });
+const AccountPage = React.lazy(() => {
+  return import("./container/AccountPage/AccountPage");
+});
 function App() {
   return (
     <Layout>
-      <p>Someone needs your help</p>
-
       <Suspense
         fallback={
           <BackDrop show="true">
@@ -20,7 +21,12 @@ function App() {
         }
       >
         <Switch>
-          <Route path="/" render={props => <FundPage {...props} />} />
+          <Route path="/" exact render={props => <FundPage {...props} />} />
+          <Route
+            path="/account"
+            exact
+            render={props => <AccountPage {...props} />}
+          />
           <Redirect to="/" />
         </Switch>
       </Suspense>

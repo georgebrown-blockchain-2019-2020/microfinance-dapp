@@ -1,0 +1,48 @@
+@import "../../assets/sass/grid";
+.account {
+  padding: 10rem;
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+.account__infor,
+.account__request {
+  display: flex;
+  flex-direction: column;
+  text-transform: uppercase;
+  text-align: center;
+  height: 40rem;
+  @include respond(tab-port) {
+    margin-top: 50px;
+    height: auto;
+  }
+  h2 {
+    background-color: var(--color-blue-sky);
+    padding: 1rem;
+  }
+}
+.account__input {
+  width: 80%;
+  margin: 10px auto !important;
+}
+.account__btn {
+  width: 10rem;
+  font-size: 1.5rem !important;
+  font-weight: bold;
+  margin: 10px auto !important;
+  background-color: var(--color-yellow-orange) !important;
+  color: var(--color-grey-dark-1) !important;
+  &--pay {
+    margin-left: 2rem !important;
+    background-color: var(--color-pink-dark) !important;
+    color: var(--color-white) !important;
+    font-size: 1.2rem !important;
+  }
+}
+.account {
+  text-align: center;
+  h2 {
+    text-transform: uppercase;
+    margin: 20px;
+  }
+}

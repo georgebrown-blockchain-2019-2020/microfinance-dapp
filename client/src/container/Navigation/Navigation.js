@@ -26,7 +26,7 @@ function Navigation() {
       <div className="title">Microfinance</div>
       <nav className="nav">
         <NavLink
-          to="/home"
+          to="/"
           exact
           className="nav__item"
           activeClassName="nav__item-active"
@@ -34,7 +34,7 @@ function Navigation() {
           fund
         </NavLink>
         <NavLink
-          to="/request"
+          to="/account"
           exact
           className="nav__item"
           activeClassName="nav__item-active"
