@@ -11,7 +11,7 @@ function LoginPage() {
           Welcome to De<span className="txt-orange">Micro</span>Fi
         </h2>
         <div className="btn-login">
-          <span>Connect with Metamask</span>
+          <span>Login with Metamask</span>
           <img src={MetamaskLogo} alt="metamask" />
         </div>
       </div>

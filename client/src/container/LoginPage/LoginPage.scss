@@ -65,14 +65,15 @@
     height: 6rem;
     width: 6rem;
     left: -40px;
-    transition: all 1s;
+    transition: all 0.2s;
   }
 
-  span:hover {
-    color: var(--color-white);
-    background-color: #e5761c;
-    & + img {
-      right: -40px;
+  &:hover {
+    span {
+      color: var(--color-white);
+      background-color: #e5761c;
+    }
+    img {
       transform: translateX(26rem);
     }
   }
