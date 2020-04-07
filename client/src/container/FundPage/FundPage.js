@@ -3,6 +3,7 @@ import FundCard from "../../component/FundCard/FundCard";
 import HeartIcon from "../../assets/image/heart-icon.gif";
 import BackDrop from "../../component/BackDrop/BackDrop";
 import Loading from "../../assets/image/loading-heart.svg";
+import Cloud from "../../assets/image/cloud.svg";
 import "./FundPage.scss";
 const dummyData = [
   { name: "Tuan", reason: "poor", value: "1.0" },
@@ -51,39 +52,41 @@ function FundPage() {
         <img src={HeartIcon} alt="heart icon" className="title_image" />
         <p>Someone needs your help !!</p>
       </div>
-      <div className="fund-card">
-        {data.length !== 0 &&
-          data
-            .slice(currentPage * maxPage, (currentPage + 1) * maxPage)
-            .map((item, index) => (
-              <FundCard
-                name={item.name}
-                reason={item.reason}
-                value={item.value}
-                key={index}
-              />
-            ))}
-      </div>
-      {loading && (
-        <BackDrop show="true">
-          <img src={Loading} alt="spinner" className="spinner" />
-        </BackDrop>
-      )}
-      {pageNum.length !== 0 && (
-        <div className="pagination">
-          <span>&laquo;</span>
-          {pageNum.map(number => (
-            <span
-              key={number}
-              className={currentPage === number ? "active" : ""}
-              onClick={() => changePage(number)}
-            >
-              {number + 1}
-            </span>
-          ))}
-          <span>&raquo;</span>
+      <div className="fund__content">
+        <div className="fund-card">
+          {data.length !== 0 &&
+            data
+              .slice(currentPage * maxPage, (currentPage + 1) * maxPage)
+              .map((item, index) => (
+                <FundCard
+                  name={item.name}
+                  reason={item.reason}
+                  value={item.value}
+                  key={index}
+                />
+              ))}
         </div>
-      )}
+        {loading && (
+          <BackDrop show="true">
+            <img src={Loading} alt="spinner" className="spinner" />
+          </BackDrop>
+        )}
+        {pageNum.length !== 0 && (
+          <div className="pagination">
+            <span>&laquo;</span>
+            {pageNum.map(number => (
+              <span
+                key={number}
+                className={currentPage === number ? "active" : ""}
+                onClick={() => changePage(number)}
+              >
+                {number + 1}
+              </span>
+            ))}
+            <span>&raquo;</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

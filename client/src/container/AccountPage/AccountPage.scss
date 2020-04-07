@@ -1,6 +1,7 @@
 @import "../../assets/sass/grid";
 .account {
   padding: 10rem;
+  background-color: var(--color-grey-light-2);
   @include respond(tab-port) {
     padding: 0;
   }
@@ -43,7 +44,7 @@
   text-align: center;
   h2 {
     text-transform: uppercase;
-    margin: 20px;
+    padding: 20px;
     overflow-wrap: break-word;
   }
   &__container {

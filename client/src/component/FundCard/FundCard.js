@@ -1,9 +1,13 @@
 import React from "react";
 import "./FundCard.scss";
+import ExpandIcon from "../../assets/image/expand.svg";
 function FundCard(props) {
   return (
     <div className="fund_item">
-      <div className="fund_item_title">{props.name}</div>
+      <div className="fund_item_title">
+        <span>{props.name}</span>
+        <img src={ExpandIcon} alt="expand" />
+      </div>
       <div className="fund_item_reason">
         <span>Reason: </span>
         <p>{props.reason}</p>

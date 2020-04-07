@@ -19,14 +19,16 @@
     height: 7rem;
   }
   &-scroll {
-    background-color: var(--color-yellow-orange);
+    background-color: rgba(0, 0, 0, 0.5);
 
     .title {
       color: var(--color-white);
     }
-
+    .nav__item {
+      color: var(--color-white);
+    }
     .nav__item::before {
-      background-color: var(--color-white);
+      background-color: var(--color-pink-dark);
     }
 
     .header__icon {
@@ -51,7 +53,9 @@
 .title {
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 3.5rem;
+  letter-spacing: 5px;
+  font-family: "Bebas Neue", cursive;
   color: var(--color-pink-dark);
   @include VerticalCenter;
   @include respond(phone) {
@@ -66,16 +70,18 @@
 
   &__item {
     position: relative;
-    font-weight: 500;
+    font-weight: bold;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     width: 10rem;
     color: var(--color-black);
+    transition: color 0.5s;
     @include VerticalCenter;
 
     &-active {
       background-color: var(--color-pink-dark);
+      color: var(--color-white);
     }
     @include respond(phone) {
       display: none;
@@ -97,8 +103,11 @@
     z-index: -1;
   }
 
-  &__item:hover::before {
-    transform: scaleX(1);
-    height: 100%;
+  &__item:hover {
+    color: var(--color-white);
+    &::before {
+      transform: scaleX(1);
+      height: 100%;
+    }
   }
 }
