@@ -21,12 +21,11 @@ const dummyData = [
 ];
 function FundPage() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [pageNum, setPageNum] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const maxPage = 8;
-  console.log(pageNum);
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {

@@ -4,18 +4,14 @@ import { NavLink } from "react-router-dom";
 import DrawerToggle from "../../component/SideDrawer/DrawerToggle/DrawerToggle";
 import Logo from "../../component/Logo/Logo";
 function Navigation(props) {
-  const stickDiv = React.createRef();
-  console.log(stickDiv);
   const [headerClass, setHeaderClass] = useState(["header"]);
   const handleScroll = () => {
     if (window.pageYOffset > 0) {
       setHeaderClass(["header", "header-scroll"]);
     } else {
-      console.log("reach");
       setHeaderClass(["header"]);
     }
   };
-  console.log(headerClass);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -47,8 +43,6 @@ function Navigation(props) {
       <div className="header__icon">
         <Logo height="100%" />
       </div>
-
-      {/* <img src={Icon} alt="icon" className="header__icon" /> */}
     </header>
   );
 }

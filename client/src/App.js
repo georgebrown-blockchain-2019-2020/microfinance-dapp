@@ -1,39 +1,52 @@
 import React, { Suspense } from "react";
 import "./App.scss";
+import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Layout from "./hoc/Layout/Layout";
 import BackDrop from "./component/BackDrop/BackDrop";
 import Loading from "./assets/image/loading-heart.svg";
-import LoginPage from "./container/LoginPage/LoginPage";
-const FundPage = React.lazy(() => {
-  return import("./container/FundPage/FundPage");
+const UserPage = React.lazy(() => {
+  return import("./container/UserPage/UserPage");
 });
-const AccountPage = React.lazy(() => {
-  return import("./container/AccountPage/AccountPage");
+const LoginPage = React.lazy(() => {
+  return import("./container/LoginPage/LoginPage");
 });
-function App() {
+const InfoPage = React.lazy(() => {
+  return import("./container/InfoPage/InfoPage");
+});
+function App(props) {
+  let routes = null;
+  if (!!props.contractAddr) {
+    routes = (
+      <Switch>
+        <Route path="/infor" render={props => <InfoPage {...props} />} />
+        <Route path="/" render={props => <UserPage {...props} />} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/login" render={props => <LoginPage {...props} />} />
+        <Redirect to="/login" />
+      </Switch>
+    );
+  }
   return (
-    // <Layout>
-    //   <Suspense
-    //     fallback={
-    //       <BackDrop show="true">
-    //         <img src={Loading} alt="spinner" className="spinner" />
-    //       </BackDrop>
-    //     }
-    //   >
-    //     <Switch>
-    //       <Route path="/" exact render={props => <FundPage {...props} />} />
-    //       <Route
-    //         path="/account"
-    //         exact
-    //         render={props => <AccountPage {...props} />}
-    //       />
-    //       <Redirect to="/" />
-    //     </Switch>
-    //   </Suspense>
-    // </Layout>
-    <LoginPage />
+    <Suspense
+      fallback={
+        <BackDrop open={true}>
+          <Loading />
+        </BackDrop>
+      }
+    >
+      {routes}
+    </Suspense>
   );
 }
-
-export default App;
+const mapStateToProps = state => {
+  return {
+    contractAddr: state.contractAddr,
+    infor: state.infor
+  };
+};
+export default connect(mapStateToProps)(App);
