@@ -6,7 +6,7 @@ function FundCard(props) {
     <div className="fund_item">
       <div className="fund_item_title">
         <span>{props.name}</span>
-        <img src={ExpandIcon} alt="expand" />
+        <img src={ExpandIcon} alt="expand" onClick={props.openModel} />
       </div>
       <div className="fund_item_reason">
         <span>Reason: </span>

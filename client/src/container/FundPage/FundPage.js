@@ -3,21 +3,94 @@ import FundCard from "../../component/FundCard/FundCard";
 import HeartIcon from "../../assets/image/heart-icon.gif";
 import BackDrop from "../../component/BackDrop/BackDrop";
 import Loading from "../../assets/image/loading-heart.svg";
-import Cloud from "../../assets/image/cloud.svg";
+import Popup from "../../component/Popup/Popup";
+
 import "./FundPage.scss";
 const dummyData = [
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "1.0" },
-  { name: "Tuan", reason: "poor", value: "2.0" }
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Leo",
+    address: "Queen Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "1.0"
+  },
+  {
+    name: "Tuan",
+    address: "King Street,Downtown",
+    phone: "439-928-1293",
+    reason: "poor",
+    value: "2.0"
+  }
 ];
 function FundPage() {
   const [loading, setLoading] = useState(false);
@@ -25,6 +98,8 @@ function FundPage() {
   const [pageNum, setPageNum] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [inforDetail, setInforDetail] = useState({});
   const maxPage = 8;
   useEffect(() => {
     setLoading(true);
@@ -42,8 +117,17 @@ function FundPage() {
   const changePage = index => {
     setCurrentPage(index);
   };
-  let content = [];
-
+  let popupContent;
+  const openInforDetail = (name, address, phone) => {
+    console.log("hello");
+    setInforDetail({ name, address, phone });
+    setOpenPopup(true);
+  };
+  const closeInforDetail = () => {
+    popupContent = null;
+    setInforDetail({});
+    setOpenPopup(false);
+  };
   return (
     <div className="fund">
       <div className="banner"></div>
@@ -61,6 +145,9 @@ function FundPage() {
                   name={item.name}
                   reason={item.reason}
                   value={item.value}
+                  openModel={() =>
+                    openInforDetail(item.name, item.address, item.phone)
+                  }
                   key={index}
                 />
               ))}
@@ -85,6 +172,13 @@ function FundPage() {
             <span>&raquo;</span>
           </div>
         )}
+        <Popup
+          name={inforDetail.name}
+          address={inforDetail.address}
+          phone={inforDetail.phone}
+          show={openPopup}
+          closed={closeInforDetail}
+        />
       </div>
     </div>
   );
