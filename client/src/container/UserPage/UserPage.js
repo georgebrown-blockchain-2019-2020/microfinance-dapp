@@ -22,7 +22,7 @@ function UserPage(props) {
         }
       >
         <Switch>
-          {/* {!infor && <Redirect to="/infor" />} */}
+          {!infor && <Redirect to="/infor" />}
           <Route path="/fund" exact render={props => <FundPage {...props} />} />
           <Route
             path="/account"

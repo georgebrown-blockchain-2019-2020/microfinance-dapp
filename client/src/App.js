@@ -26,8 +26,8 @@ function App(props) {
   } else {
     routes = (
       <Switch>
-        <Route path="/" render={props => <UserPage {...props} />} />
-        <Redirect to="/" />
+        <Route path="/login" render={props => <LoginPage {...props} />} />
+        <Redirect to="/login" />
       </Switch>
     );
   }
