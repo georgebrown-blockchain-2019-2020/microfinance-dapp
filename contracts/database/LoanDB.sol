@@ -1,4 +1,4 @@
-pragma solidity ^0.5.8;
+pragma solidity ^0.6.0;
 import "../lib/SafeMath.sol";
 import "../container/Contained.sol";
 
@@ -30,7 +30,7 @@ contract LoanDB is Contained {
         uint256 _interest
     ) external onlyContract(CONTRACT_LOAN_MANAGER) {
         debtInfo[debtNo] = debt(
-            0,
+            address(0),
             _borrower,
             _amountOfDebt,
             _interest,

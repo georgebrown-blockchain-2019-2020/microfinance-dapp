@@ -10,5 +10,10 @@ module.exports = {
      port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*", 
     }
+  },
+  compilers: {
+    solc: {
+      version: "0.6.0",
+    },
   }
 };

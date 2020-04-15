@@ -1,0 +1,460 @@
+{
+  "contractName": "ContractNames",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.0+commit.26b70077\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/leo/Documents/dapp/microfinance-dapp/contracts/container/ContractNames.sol\":\"ContractNames\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/leo/Documents/dapp/microfinance-dapp/contracts/container/ContractNames.sol\":{\"keccak256\":\"0x55c3f194bb21923774f331b42ca974b3d72c6bb79d719396b1711b70359dea39\",\"urls\":[\"bzz-raw://7af35580a80b7bd87845e38661cb01336dcb70a4f91b7df893e58b629a3b4cde\",\"dweb:/ipfs/QmTeuzujwS62ygqrhrpbNtDkVmwT1pmWtSjAjEnNoJpTo4\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220fc10f17de786eddc5d851a5f5e701fac3c893abb4f529404280833e7c48564cf64736f6c63430006000033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220fc10f17de786eddc5d851a5f5e701fac3c893abb4f529404280833e7c48564cf64736f6c63430006000033",
+  "sourceMap": "26:239:5:-:0;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:239:5;;;;;;;",
+  "deployedSourceMap": "26:239:5:-:0;;;;;",
+  "source": "pragma solidity ^0.6.0;\n\n\ncontract ContractNames {\n    string constant CONTRACT_LOAN_MANAGER = \"LoanManager\";\n    string constant CONTRACT_WALLET = \"Wallet\";\n    string constant CONTRACT_LOAN_DB = \"LoanDB\";\n    string constant CONTRACT_HEART_TOKEN = \"HeartToken\";\n}\n",
+  "sourcePath": "/home/leo/Documents/dapp/microfinance-dapp/contracts/container/ContractNames.sol",
+  "ast": {
+    "absolutePath": "/home/leo/Documents/dapp/microfinance-dapp/contracts/container/ContractNames.sol",
+    "exportedSymbols": {
+      "ContractNames": [
+        365
+      ]
+    },
+    "id": 366,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 352,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:5"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 365,
+        "linearizedBaseContracts": [
+          365
+        ],
+        "name": "ContractNames",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 355,
+            "name": "CONTRACT_LOAN_MANAGER",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "55:53:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 353,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "55:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "4c6f616e4d616e61676572",
+              "id": 354,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "95:13:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_5abf8f18cd2250f0e913a42d02d425f52ecab18635cec6156973ec60716bcdc8",
+                "typeString": "literal_string \"LoanManager\""
+              },
+              "value": "LoanManager"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 358,
+            "name": "CONTRACT_WALLET",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "114:42:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 356,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "114:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "57616c6c6574",
+              "id": 357,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "148:8:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_cfe1633df53a0649d88d788961f26058c5e7a0b5644675f19f67bb2975827ba2",
+                "typeString": "literal_string \"Wallet\""
+              },
+              "value": "Wallet"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 361,
+            "name": "CONTRACT_LOAN_DB",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "162:43:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 359,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "162:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "4c6f616e4442",
+              "id": 360,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "197:8:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_ede5ff3a1d4c35813414b589e6a3db56bd253082258481516c01c97f76c934ff",
+                "typeString": "literal_string \"LoanDB\""
+              },
+              "value": "LoanDB"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 364,
+            "name": "CONTRACT_HEART_TOKEN",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "211:51:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 362,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "211:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "4865617274546f6b656e",
+              "id": 363,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "250:12:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_742e1fb83c1768c130c5a5c95176057a210e3aa832e57abcbe89b323a7630b26",
+                "typeString": "literal_string \"HeartToken\""
+              },
+              "value": "HeartToken"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 366,
+        "src": "26:239:5"
+      }
+    ],
+    "src": "0:266:5"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/leo/Documents/dapp/microfinance-dapp/contracts/container/ContractNames.sol",
+    "exportedSymbols": {
+      "ContractNames": [
+        365
+      ]
+    },
+    "id": 366,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 352,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:5"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 365,
+        "linearizedBaseContracts": [
+          365
+        ],
+        "name": "ContractNames",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 355,
+            "name": "CONTRACT_LOAN_MANAGER",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "55:53:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 353,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "55:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "4c6f616e4d616e61676572",
+              "id": 354,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "95:13:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_5abf8f18cd2250f0e913a42d02d425f52ecab18635cec6156973ec60716bcdc8",
+                "typeString": "literal_string \"LoanManager\""
+              },
+              "value": "LoanManager"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 358,
+            "name": "CONTRACT_WALLET",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "114:42:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 356,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "114:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "57616c6c6574",
+              "id": 357,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "148:8:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_cfe1633df53a0649d88d788961f26058c5e7a0b5644675f19f67bb2975827ba2",
+                "typeString": "literal_string \"Wallet\""
+              },
+              "value": "Wallet"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 361,
+            "name": "CONTRACT_LOAN_DB",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "162:43:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 359,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "162:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "4c6f616e4442",
+              "id": 360,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "197:8:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_ede5ff3a1d4c35813414b589e6a3db56bd253082258481516c01c97f76c934ff",
+                "typeString": "literal_string \"LoanDB\""
+              },
+              "value": "LoanDB"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 364,
+            "name": "CONTRACT_HEART_TOKEN",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 365,
+            "src": "211:51:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_memory",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 362,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "211:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "4865617274546f6b656e",
+              "id": 363,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "string",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "250:12:5",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_stringliteral_742e1fb83c1768c130c5a5c95176057a210e3aa832e57abcbe89b323a7630b26",
+                "typeString": "literal_string \"HeartToken\""
+              },
+              "value": "HeartToken"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 366,
+        "src": "26:239:5"
+      }
+    ],
+    "src": "0:266:5"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.0+commit.26b70077.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-04-15T20:58:09.689Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

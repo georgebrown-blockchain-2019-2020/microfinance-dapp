@@ -1,6 +1,6 @@
-pragma solidity ^0.5.8;
+pragma solidity ^0.6.0;
 
-import "./ContainerManager.sol";
+import "./ContractManager.sol";
 import "./ContractNames.sol";
 
 
@@ -9,7 +9,7 @@ import "./ContractNames.sol";
     @dev Contains all getters of contract addresses in the system
     @author leodinh
  */
-contract BaseContainer is ContainerManager, ContractNames {
+contract BaseContainer is ContractManager, ContractNames {
     function getAddressOfLoanManager() public view returns (address) {
         return getContract(CONTRACT_LOAN_MANAGER);
     }

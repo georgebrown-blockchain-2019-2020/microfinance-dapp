@@ -1,14 +1,14 @@
-pragma solidity ^0.5.8;
+pragma solidity ^0.6.0;
 
 import "../auth/Owned.sol";
 
 
 /**
-    @title ContainerManager
+    @title ContractManager
     @dev Manages all the contract in the system
-    @author karlptrck
+    @author leodinh
  */
-contract ContainerManager is Owned {
+contract ContractManager is Owned {
     mapping(string => address) private contracts;
 
     function addContract(string memory name, address contractAddress)

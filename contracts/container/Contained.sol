@@ -1,7 +1,8 @@
-pragma solidity ^0.5.8;
+pragma solidity ^0.6.0;
 
 import "../auth/Owned.sol";
 import "./ContractNames.sol";
+import "./BaseContainer.sol";
 
 
 /**
