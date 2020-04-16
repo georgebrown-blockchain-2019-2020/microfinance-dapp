@@ -22,7 +22,7 @@ contract LoanDB is Contained {
     mapping(bytes32 => debt) private debtInfo;
     mapping(address => bytes32[]) private debtHistory;
     mapping(address => bytes32[]) private lendHistory;
-
+    mapping(address => bool) private haveDebt;
     function addDebt(
         bytes32 debtNo,
         address _borrower,
@@ -55,6 +55,13 @@ contract LoanDB is Contained {
         debtInfo[debtNo].loanState = uint8(LoanState.PAID);
     }
 
+    function setHaveDebt(address _sender,bool _state) external onlyContract(CONTRACT_LOAN_MANAGER){
+        haveDebt[_sender] = _state;
+    }
+
+    function checkHaveDebt(address _address) external view returns(bool){
+        return haveDebt[_address];
+    }
     function getLenderofDebt(bytes32 debtNo) external view returns (address) {
         return debtInfo[debtNo].lender;
     }

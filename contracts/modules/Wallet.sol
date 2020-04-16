@@ -40,7 +40,7 @@ contract Wallet is Contained {
      */
     function withdraw(address payable payee, uint256 payment)
         public
-        onlyContract(CONTRACT_LOAN_MANAGER)
+        onlyContained
     {
         _deposits[payee] = _deposits[payee].sub(payment);
 

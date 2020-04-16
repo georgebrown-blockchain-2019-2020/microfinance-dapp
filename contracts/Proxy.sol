@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "./container/BaseContainer.sol";
 import "./modules/LoanManager.sol";
 import "./database/HeartToken.sol";
-
+import "./modules/Wallet.sol";
 
 /**
     @title Proxy
@@ -12,14 +12,13 @@ import "./database/HeartToken.sol";
  */
 
 contract Proxy is BaseContainer {
-    function postRequest(uint256 _amount) external returns (bytes32) {
+    function postRequest(uint256 _amount) external {
         bytes32 _debtNo = (sha256(abi.encodePacked(msg.sender, now)));
         LoanManager(getAddressOfLoanManager()).requestLoan(
             _debtNo,
             msg.sender,
             _amount
         );
-        return _debtNo;
     }
 
     function lendLoan(bytes32 _debtNo) external payable{
@@ -38,5 +37,9 @@ contract Proxy is BaseContainer {
 
     function burnToken(uint256 _amount) external {
         HeartToken(payable(getAddressOfHeartToken())).removeToken(msg.sender, _amount);
+    }
+
+    function withDraw(uint256 _amount) external {
+        Wallet(getAddressOfWallet()).withdraw(msg.sender,_amount);
     }
 }

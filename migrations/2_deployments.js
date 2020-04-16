@@ -5,7 +5,6 @@ const HeartToken = artifacts.require("HeartToken");
 const LoanDB = artifacts.require("LoanDB");
 
 module.exports = async function (deployer) {
-  console.log("hello");
   await deployer.deploy(Proxy);
 
   //Database
