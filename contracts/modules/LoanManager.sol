@@ -31,7 +31,7 @@ contract LoanManager is Contained {
         external
         onlyContained
     {
-        require(_amount > 100 wei, "The amount is too small to borrow");
+        require(_amount >= 1e16 wei, "The amount is too small to borrow");
         require(loandb.getBorrowerofDebt(_debtNo) == address(0), "debt exists");
         require(loandb.checkHaveDebt(_borrower) == false,"already have Debt");
         uint256 _interest = (_amount.mul(2)).div(100);
