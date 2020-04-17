@@ -29,6 +29,14 @@ const sideDrawer = props => {
           >
             account
           </NavLink>
+          <NavLink
+            to="/coupon"
+            exact
+            className="nav__item--drawer"
+            activeClassName="nav__item-active--drawer"
+          >
+            coupon
+          </NavLink>
         </nav>
       </div>
     </div>

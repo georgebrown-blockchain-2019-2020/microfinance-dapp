@@ -10,6 +10,9 @@ const FundPage = React.lazy(() => {
 const AccountPage = React.lazy(() => {
   return import("../AccountPage/AccountPage");
 });
+const CouponPage = React.lazy(() => {
+  return import("../CouponPage/CouponPage");
+});
 function UserPage(props) {
   const { infor, contractAddr } = props;
   return (
@@ -22,12 +25,17 @@ function UserPage(props) {
         }
       >
         <Switch>
-          {!infor && <Redirect to="/infor" />}
+          {/* {!infor && <Redirect to="/infor" />} */}
           <Route path="/fund" exact render={props => <FundPage {...props} />} />
           <Route
             path="/account"
             exact
             render={props => <AccountPage {...props} />}
+          />
+          <Route
+            path="/coupon"
+            exact
+            render={props => <CouponPage {...props} />}
           />
           <Redirect to="/fund" />
         </Switch>

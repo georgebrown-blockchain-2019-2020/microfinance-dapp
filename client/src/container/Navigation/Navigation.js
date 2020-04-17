@@ -38,6 +38,14 @@ function Navigation(props) {
         >
           account
         </NavLink>
+        <NavLink
+          to="/coupon"
+          exact
+          className="nav__item"
+          activeClassName="nav__item-active"
+        >
+          coupon
+        </NavLink>
       </nav>
       <DrawerToggle clicked={props.drawerToggleClicked} />
       <div className="header__icon">
