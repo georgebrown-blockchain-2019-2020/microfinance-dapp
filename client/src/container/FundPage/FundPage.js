@@ -26,49 +26,46 @@ function FundPage(props) {
 
   // useEffect(() => {}, [currentPage]);
   const updateDebtList = useCallback(async () => {
-    const data = database.ref("debt");
+    const getDebtDataBase = async () =>
+      await database.ref("debt").once("value");
+    const getInforDataBase = async borrower =>
+      await database
+        .ref("infor")
+        .orderByChild("userAddr")
+        .equalTo(borrower)
+        .once("value");
     const tempData = [];
-    data.once("value", async snapshot => {
-      console.log(snapshot.val());
-      const debtList = snapshot.val();
-      let item = {
-        debtNo: "",
-        userAddress: "",
-        reason: "",
-        value: "",
-        name: "",
-        address: "",
-        phone: ""
-      };
-      for (let key in debtList) {
-        // for(let key in data.val());
-        const borrower = await getBorrowerofDebt(debtList[key].debtNo);
-        console.log(borrower);
-        if (borrower !== address) {
-          const state = await getStateofDebt(debtList[key].debtNo);
-          if (parseInt(state) === 0) {
-            const amount = await getAmountofDebt(debtList[key].debtNo);
-            item.value = amount;
-            item.debtNo = debtList[key].debtNo;
-            item.userAddress = borrower;
-            item.reason = debtList[key].reason;
-            const userData = database.ref("infor");
-            userData
-              .orderByChild("userAddr")
-              .equalTo(borrower)
-              .on("child_added", async function(snapshot) {
-                item.name = snapshot.val().name;
-                item.address = snapshot.val().address;
-                item.phone = snapshot.val().phone;
-                tempData.push(item);
-                console.log(tempData);
-              });
-            console.log(item);
-            console.log(tempData);
+    let debtData = await getDebtDataBase();
+    let debtsList = debtData.val();
+    for (let key in debtsList) {
+      let borrower = await getBorrowerofDebt(debtsList[key].debtNo);
+      if (borrower !== address) {
+        let item = {
+          debtNo: "",
+          userAddress: "",
+          reason: "",
+          value: "",
+          name: "",
+          address: "",
+          phone: ""
+        };
+        let state = await getStateofDebt(debtsList[key].debtNo);
+        if (parseInt(state) === 0) {
+          let amount = await getAmountofDebt(debtsList[key].debtNo);
+          item.value = amount;
+          item.debtNo = debtsList[key].debtNo;
+          item.userAddress = borrower;
+          item.reason = debtsList[key].reason;
+          let userData = await getInforDataBase(borrower);
+          for (let userKey in userData.val()) {
+            item.name = userData.val()[userKey].name;
+            item.address = userData.val()[userKey].address;
+            item.phone = userData.val()[userKey].phone;
           }
         }
+        tempData.push(item);
       }
-    });
+    }
     return tempData;
   }, [address]);
   useEffect(() => {

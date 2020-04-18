@@ -6696,10 +6696,16 @@
       "links": {},
       "address": "0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B",
       "transactionHash": "0x116a03060a3384b2fcfbe36adc9e243409161ed08c59b56b8af4dfa17ada2687"
+    },
+    "1587216409939": {
+      "events": {},
+      "links": {},
+      "address": "0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B",
+      "transactionHash": "0x116a03060a3384b2fcfbe36adc9e243409161ed08c59b56b8af4dfa17ada2687"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-04-18T03:03:37.193Z",
+  "updatedAt": "2020-04-18T13:29:37.009Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "leodinh",
