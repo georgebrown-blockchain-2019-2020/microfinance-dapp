@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./InfoPage.scss";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { database } from "../../firebase/FireBaseRef";
 import * as actions from "../../store/actions/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
 function InfoPage(props) {
-  const { infor, loading, error, authRedirectPath, onSetInfor } = props;
+  const {
+    infor,
+    loading,
+    error,
+    authRedirectPath,
+    onSetInfor,
+    userAddr
+  } = props;
   const [information, setInformation] = useState({
     name: "",
     address: "",
@@ -19,8 +27,10 @@ function InfoPage(props) {
   };
   const valid =
     !!information.name && !!information.address && !!information.phone;
-  const onSubmit = () => {
-    onSetInfor(information.name + information.address);
+  const onSubmit = async () => {
+    const data = { ...information, userAddr: userAddr };
+    var newPost = await database.ref("infor").push(data);
+    onSetInfor({ ...data, key: newPost.key });
   };
   return (
     <div className="bg-color">
@@ -71,7 +81,8 @@ const mapStateToProps = state => {
     infor: state.infor,
     loading: state.loading,
     error: state.error,
-    authRedirectPath: state.authRedirectPath
+    authRedirectPath: state.authRedirectPath,
+    userAddr: state.address
   };
 };
 const mapDispatchToProps = dispatch => {

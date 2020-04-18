@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../../scripts/utility";
 const initialState = {
-  contractAddr: null,
+  address: null,
   infor: null,
   error: null,
   loading: false,
@@ -13,7 +13,7 @@ const authStart = (state, action) => {
 };
 const authSuccess = (state, action) => {
   return updateObject(state, {
-    contractAddr: action.contractAddr,
+    address: action.address,
     loading: false
   });
 };

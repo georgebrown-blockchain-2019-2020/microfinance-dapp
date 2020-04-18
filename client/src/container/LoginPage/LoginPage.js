@@ -10,23 +10,16 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 function LoginPage(props) {
   const {
     infor,
-    contractAddr,
+    address,
     authRedirectPath,
     loading,
     error,
     onSetAuthRedirectPath,
     onAuth
   } = props;
-  useEffect(() => {
-    if (infor) {
-      onSetAuthRedirectPath("/");
-    } else {
-      onSetAuthRedirectPath("/infor");
-    }
-  }, [infor, onSetAuthRedirectPath]);
   return (
     <div className="bg-color">
-      {!!contractAddr && <Redirect to={authRedirectPath} />}
+      {!!address && <Redirect to={authRedirectPath} />}
       <div className="login__content">
         <div className="login__title">
           <img src={Logo} alt="logo" />
@@ -49,7 +42,7 @@ function LoginPage(props) {
 }
 const mapStateToProps = state => {
   return {
-    contractAddr: state.contractAddr,
+    address: state.address,
     infor: state.infor,
     loading: state.loading,
     error: state.error,

@@ -38,6 +38,12 @@
     background-color: var(--color-pink-dark) !important;
     color: var(--color-white) !important;
     font-size: 1.2rem !important;
+    &:disabled {
+      background-color: var(--color-grey-dark-3) !important;
+    }
+  }
+  &:disabled {
+    background-color: var(--color-grey-dark-3) !important;
   }
 }
 .account {

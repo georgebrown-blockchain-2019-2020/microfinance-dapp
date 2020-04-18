@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CouponPage.scss";
 import CouponBackground from "../../assets/image/coupon_cover.jpg";
 import PropTypes from "prop-types";
@@ -11,6 +11,8 @@ import Box from "@material-ui/core/Box";
 import CouponItem from "../../component/CouponItem/CouponItem";
 import RedeemedItem from "../../component/RedeemedItem/RedeemedItem";
 import CouponList from "../../scripts/couponList.json";
+import { getTokenBalance } from "../../blockchain/contractInteract";
+import { connect } from "react-redux";
 function TabPanel(props) {
   console.log(CouponList);
   const { children, value, index, ...other } = props;
@@ -49,13 +51,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper
   }
 }));
-function CouponPage() {
+function CouponPage(props) {
+  const { userAddr } = props;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  const [tokenBalance, setTokenBalance] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  useEffect(() => {
+    getTokenBalance(userAddr).then(result => setTokenBalance(result));
+  }, [userAddr]);
   return (
     <div className="coupon">
       <img
@@ -65,7 +71,7 @@ function CouponPage() {
       />
       <div className="coupon__balance">
         <p>
-          Balance: <span>10</span> Heart Token
+          Balance: <span>{tokenBalance}</span> Heart Token
         </p>
       </div>
       <AppBar position="static" color="default">
@@ -112,5 +118,9 @@ function CouponPage() {
     </div>
   );
 }
-
-export default CouponPage;
+const mapStateToProps = state => {
+  return {
+    userAddr: state.address
+  };
+};
+export default connect(mapStateToProps)(CouponPage);

@@ -15,7 +15,10 @@ function FundCard(props) {
       <div className="fund_item_money">
         <span>{props.value} Ether</span>
       </div>
-      <button className="fund_item_btn" onClick={() => props.lend(props)}>
+      <button
+        className="fund_item_btn"
+        onClick={() => props.lend(props.id, props.value)}
+      >
         <span>lend</span>
       </button>
     </div>

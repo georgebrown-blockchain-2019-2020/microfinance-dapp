@@ -1,9 +1,10 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import "./App.scss";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import BackDrop from "./component/BackDrop/BackDrop";
 import Loading from "./assets/image/loading-heart.svg";
+import publicEntryInfo from "./blockchain/publicEntryInfo";
 const UserPage = React.lazy(() => {
   return import("./container/UserPage/UserPage");
 });
@@ -15,7 +16,12 @@ const InfoPage = React.lazy(() => {
 });
 function App(props) {
   let routes = null;
-  if (!!props.contractAddr) {
+  useEffect(() => {
+    import("./blockchain/publicEntryInfo").then(publicEntryInfo => {
+      publicEntryInfo.default.options.from = props.address;
+    });
+  }, [props.address]);
+  if (!!props.address) {
     routes = (
       <Switch>
         <Route path="/infor" render={props => <InfoPage {...props} />} />
@@ -26,8 +32,8 @@ function App(props) {
   } else {
     routes = (
       <Switch>
-        <Route path="/" render={props => <UserPage {...props} />} />
-        <Redirect to="/" />
+        <Route path="/login" render={props => <LoginPage {...props} />} />
+        <Redirect to="/login" />
       </Switch>
     );
   }
@@ -45,7 +51,7 @@ function App(props) {
 }
 const mapStateToProps = state => {
   return {
-    contractAddr: state.contractAddr,
+    address: state.address,
     infor: state.infor
   };
 };

@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Web3 from "web3";
+import { database } from "../../firebase/FireBaseRef";
 export const auth = () => {
   return async dispatch => {
     dispatch(authStart());
@@ -7,7 +8,17 @@ export const auth = () => {
     try {
       await window.ethereum.enable();
       const accounts = await web3.eth.getAccounts();
+      const data = database.ref("infor");
+      await data
+        .orderByChild("userAddr")
+        .equalTo(accounts[0])
+        .on("child_added", function(snapshot) {
+          const data = { ...snapshot.val(), key: snapshot.key };
+          dispatch(getInforSuccess(data));
+          dispatch(setDirectPath("/"));
+        });
       dispatch(authSuccess(accounts[0]));
+
       // dispatch(getInforSuccess("Leo"));
     } catch (error) {
       dispatch(authFail(error.message));
@@ -19,10 +30,10 @@ export const authStart = () => {
     type: actionTypes.AUTH_START
   };
 };
-export const authSuccess = contractAddr => {
+export const authSuccess = address => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    contractAddr: contractAddr
+    address: address
   };
 };
 export const authFail = error => {

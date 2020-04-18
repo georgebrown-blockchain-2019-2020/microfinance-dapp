@@ -14,7 +14,7 @@ const CouponPage = React.lazy(() => {
   return import("../CouponPage/CouponPage");
 });
 function UserPage(props) {
-  const { infor, contractAddr } = props;
+  const { infor, address } = props;
   return (
     <Layout>
       <Suspense
@@ -25,17 +25,21 @@ function UserPage(props) {
         }
       >
         <Switch>
-          {/* {!infor && <Redirect to="/infor" />} */}
-          <Route path="/fund" exact render={props => <FundPage {...props} />} />
+          {!infor && <Redirect to="/infor" />}
+          <Route
+            path="/fund"
+            exact
+            render={(props) => <FundPage {...props} />}
+          />
           <Route
             path="/account"
             exact
-            render={props => <AccountPage {...props} />}
+            render={(props) => <AccountPage {...props} />}
           />
           <Route
             path="/coupon"
             exact
-            render={props => <CouponPage {...props} />}
+            render={(props) => <CouponPage {...props} />}
           />
           <Redirect to="/fund" />
         </Switch>
@@ -43,10 +47,10 @@ function UserPage(props) {
     </Layout>
   );
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    contractAddr: state.contractAddr,
-    infor: state.infor
+    address: state.address,
+    infor: state.infor,
   };
 };
 export default connect(mapStateToProps)(UserPage);
