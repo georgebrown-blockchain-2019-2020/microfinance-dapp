@@ -45,7 +45,7 @@ contract LoanDB is Contained {
     {
         debtInfo[debtNo].lender = _lender;
         debtInfo[debtNo].loanState = uint8(LoanState.FUNDED);
-        debtHistory[_lender].push(debtNo);
+        lendHistory[_lender].push(debtNo);
     }
 
     function completeDebt(bytes32 debtNo)
