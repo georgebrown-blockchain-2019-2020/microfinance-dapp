@@ -62,8 +62,8 @@ function FundPage(props) {
             item.address = userData.val()[userKey].address;
             item.phone = userData.val()[userKey].phone;
           }
+          tempData.push(item);
         }
-        tempData.push(item);
       }
     }
     return tempData;
@@ -95,6 +95,7 @@ function FundPage(props) {
     setOpenPopup(false);
   };
   const lendLoanAct = async (debtNo, amount) => {
+    setLoading(true);
     await lendLoan(debtNo, amount);
     updateDebtList().then(result => {
       setData(result);
@@ -104,6 +105,7 @@ function FundPage(props) {
       }
       setPageNum(numList);
     });
+    setLoading(false);
     Swal.fire({
       icon: "success",
       title: "You paid successfully",

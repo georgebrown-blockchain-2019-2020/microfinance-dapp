@@ -5,6 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Loading from "../../component/Loading/Loading";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import { database } from "../../firebase/FireBaseRef";
 import { connect } from "react-redux";
 import BN from "bn.js";
@@ -49,9 +55,10 @@ function AccountPage(props) {
     setDebt(updatedProfile);
   };
   useEffect(() => {
-    const data = database.ref("debt");
+    const debtData = database.ref("debt");
+    const inforData = database.ref("infor");
     let result;
-    data
+    debtData
       .orderByChild("borrower")
       .equalTo(address)
       .on("child_added", async function(snapshot) {
@@ -85,15 +92,31 @@ function AccountPage(props) {
       setWalletBalance(result);
     });
     getLendHistory(address).then(async result => {
+      console.log(result);
       let list = [];
       for (let i = 0; i < result.length; i++) {
         let state = await getStateofDebt(result[i]);
         if (parseInt(state) === 1) {
-          let borrower = await getBorrowerofDebt(result[i]);
-          list.push(borrower);
+          let borrowerAddr = await getBorrowerofDebt(result[i]);
+          let getBorrowerInfo = async () =>
+            await inforData
+              .orderByChild("userAddr")
+              .equalTo(borrowerAddr)
+              .once("value");
+          let borrowerInfo = await getBorrowerInfo();
+          console.log(borrowerInfo.val());
+          for (let userKey in borrowerInfo.val()) {
+            list.push({
+              userAddress: borrowerAddr,
+              name: borrowerInfo.val()[userKey].name,
+              address: borrowerInfo.val()[userKey].address,
+              phone: borrowerInfo.val()[userKey].phone
+            });
+          }
         }
       }
       setDebtors(list);
+      console.log(list);
     });
   }, [address]);
   useEffect(() => {
@@ -286,8 +309,35 @@ function AccountPage(props) {
                 "No Debtors"
               ) : (
                 <div>
-                  Debtors:
-                  <span>{debtors.join(", ")}</span>
+                  <h2>Debtors</h2>
+                  <TableContainer component={Paper}>
+                    <Table className="debtors-table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell align="right">Phone</TableCell>
+                          <TableCell align="right">Address</TableCell>
+                          <TableCell align="right">Eth Address</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {debtors.map(debtor => (
+                          <TableRow key={debtor.userAddress}>
+                            <TableCell component="th" scope="row">
+                              {debtor.name}
+                            </TableCell>
+                            <TableCell align="right">{debtor.phone}</TableCell>
+                            <TableCell align="right">
+                              {debtor.address}
+                            </TableCell>
+                            <TableCell align="right">
+                              {debtor.userAddress}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                 </div>
               )}
             </h2>
