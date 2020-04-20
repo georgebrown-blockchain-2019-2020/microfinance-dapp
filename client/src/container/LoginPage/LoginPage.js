@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./LoginPage.scss";
 import Logo from "../../assets/image/icon.png";
 import { connect } from "react-redux";
@@ -8,15 +8,7 @@ import { Redirect } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function LoginPage(props) {
-  const {
-    infor,
-    address,
-    authRedirectPath,
-    loading,
-    error,
-    onSetAuthRedirectPath,
-    onAuth
-  } = props;
+  const { address, authRedirectPath, loading, error, onAuth } = props;
   return (
     <div className="bg-color">
       {!!address && <Redirect to={authRedirectPath} />}
@@ -43,7 +35,6 @@ function LoginPage(props) {
 const mapStateToProps = state => {
   return {
     address: state.address,
-    infor: state.infor,
     loading: state.loading,
     error: state.error,
     authRedirectPath: state.authRedirectPath
@@ -52,8 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: () => dispatch(actions.auth()),
-    onSetAuthRedirectPath: path => dispatch(actions.setDirectPath(path))
+    onAuth: () => dispatch(actions.auth())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

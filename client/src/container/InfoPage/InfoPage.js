@@ -30,7 +30,7 @@ function InfoPage(props) {
     !!information.name && !!information.address && !!information.phone;
   const onSubmit = async () => {
     const data = { ...information, userAddr: userAddr };
-    var newPost = await database.ref("infor").push(data);
+    let newPost = await database.ref("infor").push(data);
     onSetInfor({ ...data, key: newPost.key });
   };
   return (

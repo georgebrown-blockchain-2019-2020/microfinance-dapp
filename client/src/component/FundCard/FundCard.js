@@ -1,6 +1,7 @@
 import React from "react";
 import "./FundCard.scss";
 import ExpandIcon from "../../assets/image/expand.svg";
+import { convertWeiToEther, convertWeiToUSD } from "../../scripts/utility";
 function FundCard(props) {
   return (
     <div className="fund_item">
@@ -14,7 +15,8 @@ function FundCard(props) {
       </div>
       <div className="fund_item_money">
         <span>
-          {props.value} Ether ({props.usdValue} USD)
+          {convertWeiToEther(props.value)} Ether (
+          {convertWeiToUSD(props.value, props.usdRate)} USD)
         </span>
       </div>
       <button

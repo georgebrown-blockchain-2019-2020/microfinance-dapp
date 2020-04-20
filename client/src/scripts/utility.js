@@ -9,7 +9,19 @@ export const updateObject = (oldObject, updatedValues) => {
   };
 };
 
+export const generateString = length => {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
 export const convertWeiToEther = amount => {
+  console.log(amount);
   return amount === 0 ? 0 : web3.utils.fromWei(amount, "ether");
 };
 
@@ -47,7 +59,7 @@ export function USDFormatCustom(props) {
     />
   );
 }
-export function ETHFormatCustom(props) {
+export function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
 
   return (
@@ -85,6 +97,19 @@ export function PhoneFormatCustom(props) {
       }}
       thousandSeparator
       isNumericString
+      format="+1 (###) ###-####"
+      mask="_"
+    />
+  );
+}
+
+export function PhoneTextFormatCustom(props) {
+  const { ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      displayType={"text"}
       format="+1 (###) ###-####"
       mask="_"
     />

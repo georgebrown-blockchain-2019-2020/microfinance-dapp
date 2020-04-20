@@ -4,6 +4,7 @@ import Backdrop from "../BackDrop/BackDrop";
 import PersonLogo from "../../assets/image/person.svg";
 import PhoneLogo from "../../assets/image/phone.svg";
 import AddressLogo from "../../assets/image/address.svg";
+import { PhoneTextFormatCustom } from "../../scripts/utility";
 function Popup(props) {
   return (
     <React.Fragment>
@@ -27,7 +28,10 @@ function Popup(props) {
             </div>
             <div className="popup__phone popup__flex">
               <img src={PhoneLogo} alt="phonelogo" />
-              <span>{props.phone}</span>
+              <PhoneTextFormatCustom
+                value={props.phone}
+                renderText={value => <span>{value}</span>}
+              />
             </div>
           </div>
         </div>

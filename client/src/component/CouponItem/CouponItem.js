@@ -8,7 +8,13 @@ function CouponItem(props) {
       <p className="coupon_item__description">{props.title}</p>
       <div className="coupon_item__button">
         <p>{props.amount} Heart Token</p>
-        <button className="btn btn--blue">Redeem</button>
+        <button
+          className="btn btn--blue"
+          disabled={!props.canBeRedeemed}
+          onClick={() => props.getCode(props.id, props.amount)}
+        >
+          Redeem
+        </button>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./CouponPage.scss";
 import CouponBackground from "../../assets/image/coupon_cover.jpg";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -11,8 +10,12 @@ import Box from "@material-ui/core/Box";
 import CouponItem from "../../component/CouponItem/CouponItem";
 import RedeemedItem from "../../component/RedeemedItem/RedeemedItem";
 import CouponList from "../../scripts/couponList.json";
-import { getTokenBalance } from "../../blockchain/contractInteract";
+import { getTokenBalance, burnToken } from "../../blockchain/contractInteract";
+import Loading from "../../component/Loading/Loading";
+import Swal from "sweetalert2";
 import { connect } from "react-redux";
+import { generateString } from "../../scripts/utility";
+import { database } from "../../firebase/FireBaseRef";
 function TabPanel(props) {
   console.log(CouponList);
   const { children, value, index, ...other } = props;
@@ -44,26 +47,63 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-    backgroundColor: theme.palette.background.paper
-  }
-}));
 function CouponPage(props) {
   const { userAddr } = props;
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [tokenBalance, setTokenBalance] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [tokenBalance, setTokenBalance] = useState(0);
+  const [redeemedCoupons, setRedeemedCoupon] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   useEffect(() => {
     getTokenBalance(userAddr).then(result => setTokenBalance(result));
+    let getCouponData = database.ref("coupon");
+    getCouponData
+      .orderByChild("userAddr")
+      .equalTo(userAddr)
+      .on("child_added", async function(snapshot) {
+        let productInfo = CouponList.filter(coupon => {
+          console.log(coupon.id);
+          console.log(snapshot.val().product);
+          console.log(coupon.id === snapshot.val().product);
+          return coupon.id === snapshot.val().product;
+        });
+        console.log(snapshot.val());
+        let item = {
+          product: snapshot.val().product,
+          productCode: snapshot.val().productCode,
+          image: productInfo[0].image
+        };
+        console.log(productInfo);
+        setRedeemedCoupon(previousState => [...previousState, item]);
+      });
   }, [userAddr]);
+  const getCouponCode = async (product, amount) => {
+    setLoading(true);
+    try {
+      await burnToken(amount);
+      const productCode = product + generateString(5);
+      let couponData = { product, productCode, userAddr };
+      await database.ref("coupon").push(couponData);
+      Swal.fire({
+        icon: "success",
+        title: "Redeemed successfully",
+        text: `Your coupon code : ${couponData.productCode}`
+      });
+      setLoading(false);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: error.message
+      });
+      setLoading(false);
+    }
+  };
   return (
     <div className="coupon">
+      {loading && <Loading />}
       <img
         src={CouponBackground}
         alt="coupon-background"
@@ -98,6 +138,8 @@ function CouponPage(props) {
               amount={item.amount}
               title={item.title}
               enddate={item.enddate}
+              canBeRedeemed={parseInt(item.amount) <= parseInt(tokenBalance)}
+              getCode={getCouponCode}
               key={item.id}
             />
           ))}
@@ -105,14 +147,22 @@ function CouponPage(props) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="coupon__items">
-          <RedeemedItem
-            image={CouponList[0].image}
-            id={CouponList[0].id}
-            key={CouponList[0].id}
-            title={CouponList[0].title}
-            code={`${CouponList[0].id}XSHD`}
-            enddate={CouponList[0].enddate}
-          />
+          {redeemedCoupons.length === 0 ? (
+            <span>No Redeemed Coupon</span>
+          ) : (
+            <React.Fragment>
+              {redeemedCoupons.map(coupon => (
+                <RedeemedItem
+                  image={coupon.image}
+                  id={coupon.product}
+                  key={coupon.productCode}
+                  title={coupon.product}
+                  code={coupon.productCode}
+                  enddate={coupon.enddate}
+                />
+              ))}
+            </React.Fragment>
+          )}
         </div>
       </TabPanel>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navigation from "../../container/Navigation/Navigation";
 import Footer from "../../container/Footer/Footer";
 import SideDrawer from "../../component/SideDrawer/SideDrawer";

@@ -18,8 +18,10 @@ import {
   convertWeiToUSD,
   convertWeiToEther,
   convertEtherToWei,
-  ETHFormatCustom,
-  USDFormatCustom
+  NumberFormatCustom,
+  USDFormatCustom,
+  PhoneFormatCustom,
+  PhoneTextFormatCustom
 } from "../../scripts/utility";
 import {
   requestLoan,
@@ -30,7 +32,8 @@ import {
   getWalletBalance,
   getLendHistory,
   getBorrowerofDebt,
-  withDraw
+  withDraw,
+  getAmountofDebt
 } from "../../blockchain/contractInteract";
 import * as actions from "../../store/actions/index";
 import Swal from "sweetalert2";
@@ -62,6 +65,7 @@ function AccountPage(props) {
     setDebt(updatedProfile);
   };
   useEffect(() => {
+    // Load all day including current debt, information, debtors list
     const debtData = database.ref("debt");
     const inforData = database.ref("infor");
     let result;
@@ -70,22 +74,21 @@ function AccountPage(props) {
       .equalTo(address)
       .on("child_added", async function(snapshot) {
         const state = await getStateofDebt(snapshot.val().debtNo);
-        console.log(state);
+        const amount = await getAmountofDebt(snapshot.val().debtNo);
         if (parseInt(state) === 0) {
           result = {
-            amount: convertWeiToEther(snapshot.val().amount),
+            amount: convertWeiToEther(amount),
             reason: snapshot.val().reason,
             state: 0,
             lender: "",
             debtNo: snapshot.val().debtNo
           };
-          console.log("hello");
           setDebt(result);
         } else if (parseInt(state) === 1) {
           const lender = await getLenderofDebt(snapshot.val().debtNo);
           const interest = await getInterestofDebt(snapshot.val().debtNo);
           result = {
-            amount: convertWeiToEther(snapshot.val().amount),
+            amount: convertWeiToEther(amount),
             reason: snapshot.val().reason,
             lender: lender,
             interest: convertWeiToEther(interest),
@@ -99,7 +102,6 @@ function AccountPage(props) {
       setWalletBalance(result);
     });
     getLendHistory(address).then(async result => {
-      console.log(result);
       let list = [];
       for (let i = 0; i < result.length; i++) {
         let state = await getStateofDebt(result[i]);
@@ -111,7 +113,6 @@ function AccountPage(props) {
               .equalTo(borrowerAddr)
               .once("value");
           let borrowerInfo = await getBorrowerInfo();
-          console.log(borrowerInfo.val());
           for (let userKey in borrowerInfo.val()) {
             list.push({
               userAddress: borrowerAddr,
@@ -123,7 +124,6 @@ function AccountPage(props) {
         }
       }
       setDebtors(list);
-      console.log(list);
     });
   }, [address]);
   useEffect(() => {
@@ -135,7 +135,6 @@ function AccountPage(props) {
     information.name !== infor.name ||
     information.address !== infor.address ||
     information.phone !== infor.phone;
-  console.log(validUpdateInfo);
   const updateInfo = () => {
     setLoading(true);
     onSetInfor({ ...information, userAddr: infor.userAddr, key: infor.key });
@@ -157,7 +156,7 @@ function AccountPage(props) {
   const requestDebt = async () => {
     setLoading(true);
     try {
-      const result = await requestLoan(debt.amount);
+      const result = await requestLoan(convertEtherToWei(debt.amount));
       const debtNo = result.events[0].raw.data.slice(0, 66);
       const data = {
         amount: debt.amount,
@@ -173,7 +172,6 @@ function AccountPage(props) {
         title: "You requested successfully"
       });
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -184,27 +182,51 @@ function AccountPage(props) {
   };
   const payDebt = async () => {
     setLoading(true);
-    const amount = new Decimal(debt.amount).plus(new Decimal(debt.interest));
-    console.log(amount.toString());
-    console.log(debt.debtNo);
-    await payLoan(debt.debtNo, amount.toString());
-    Swal.fire({
-      icon: "success",
-      title: "You paid successfully",
-      text: "Reward 10 Heart Token"
-    });
-    setLoading(false);
-    setDebt({ amount: "", reason: "", state: -1, lender: "" });
+    const amount = new Decimal(convertEtherToWei(debt.amount)).plus(
+      new Decimal(convertEtherToWei(debt.interest))
+    );
+    try {
+      await payLoan(debt.debtNo, amount.toString());
+      Swal.fire({
+        icon: "success",
+        title: "You paid successfully",
+        text: "Reward 10 Heart Token"
+      });
+      setLoading(false);
+      setDebt({ amount: "", reason: "", state: -1, lender: "" });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: error.message
+      });
+      setLoading(false);
+    }
   };
   const withDrawWallet = async () => {
     setLoading(true);
-    await withDraw(walletBalance);
-    getWalletBalance(address).then(result => {
-      setWalletBalance(result);
-    });
+    try {
+      await withDraw(walletBalance);
+      getWalletBalance(address).then(result => {
+        setWalletBalance(result);
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Withdrawed successfully",
+        text: `Your withdrawed amount is ${convertWeiToEther(
+          walletBalance
+        )} Ether`
+      });
+      setLoading(false);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: error.message
+      });
+      setLoading(false);
+    }
+
     setLoading(false);
   };
-  console.log(debt.state);
   return (
     <div className="account">
       {(reduxLoading || loading) && <Loading />}
@@ -225,6 +247,9 @@ function AccountPage(props) {
               className="account__input"
               value={information.phone}
               onChange={handleChangeInfor("phone")}
+              InputProps={{
+                inputComponent: PhoneFormatCustom
+              }}
             />
             <TextField
               label="Address"
@@ -255,7 +280,7 @@ function AccountPage(props) {
                 onChange={handleChangeDebt("amount")}
                 disabled={debt.state !== -1}
                 InputProps={{
-                  inputComponent: ETHFormatCustom
+                  inputComponent: NumberFormatCustom
                 }}
                 error={debt.amount >= 60}
                 helperText={debt.amount >= 60 && "Too much Ether."}
@@ -304,7 +329,11 @@ function AccountPage(props) {
               variant="contained"
               className="account__btn"
               onClick={debt.state === -1 ? requestDebt : payDebt}
-              disabled={debt.state === 0}
+              disabled={
+                debt.state === 0 ||
+                debt.amount >= 60 ||
+                debt.reason.length === 0
+              }
             >
               {debt.state === 0
                 ? "Requested"
@@ -354,7 +383,12 @@ function AccountPage(props) {
                             <TableCell component="th" scope="row">
                               {debtor.name}
                             </TableCell>
-                            <TableCell align="right">{debtor.phone}</TableCell>
+                            <TableCell align="right">
+                              <PhoneTextFormatCustom
+                                value={debtor.phone}
+                                renderText={value => <span>{value}</span>}
+                              />
+                            </TableCell>
                             <TableCell align="right">
                               {debtor.address}
                             </TableCell>

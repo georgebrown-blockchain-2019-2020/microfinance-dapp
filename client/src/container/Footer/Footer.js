@@ -4,8 +4,9 @@ import Logo from "../../assets/image/icon.png";
 import { NavLink } from "react-router-dom";
 function Footer() {
   const navigationsList = useState([
-    { url: "/", name: "fund" },
-    { url: "/account", name: "account" }
+    { url: "/fund", name: "fund" },
+    { url: "/account", name: "account" },
+    { url: "/coupon", name: "coupon" }
   ])[0];
   return (
     <div className="footer">
@@ -29,31 +30,47 @@ function Footer() {
           </div>
         </div>
         <div className="col-1-of-2">
-          <p className="footer__copyright">
-            Built by
-            <a
-              href="https://www.linkedin.com/in/leo-tuan-dinh-318709193/"
-              className="footer__link footer__reference"
-            >
-              Leo Tuan Dinh
-            </a>
-          </p>
-          <div>
-            Icons made by
-            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-              Freepik
-            </a>
-            ,
-            <a
-              href="https://www.flaticon.com/authors/smashicons"
-              title="Smashicons"
-            >
-              Smashicons
-            </a>
-            from
-            <a href="https://www.flaticon.com/" title="Flaticon">
-              www.flaticon.com
-            </a>
+          <div className="footer__copyright">
+            <p>
+              Built by
+              <a
+                href="https://www.linkedin.com/in/leo-tuan-dinh-318709193/"
+                className="footer__link footer__reference"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Leo Tuan Dinh
+              </a>
+            </p>
+            <div>
+              Icons made by &nbsp;
+              <a
+                href="https://www.flaticon.com/authors/freepik"
+                title="Freepik"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Freepik
+              </a>
+              ,
+              <a
+                href="https://www.flaticon.com/authors/smashicons"
+                title="Smashicons"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Smashicons
+              </a>
+              &nbsp; from &nbsp;
+              <a
+                href="https://www.flaticon.com/"
+                title="Flaticon"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                www.flaticon.com
+              </a>
+            </div>
           </div>
         </div>
       </div>

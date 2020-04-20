@@ -3438,6 +3438,12 @@
     "version": "0.6.0+commit.26b70077.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0x6a961cD4488CBCF843E9d2D26A4b8f79BdD1E0Bb",
+      "transactionHash": "0x9a861a97503c8ff06866cf75f2f32e6762fae2e046cf47429d3ad10137df5858"
+    },
     "1586981430124": {
       "events": {},
       "links": {},
@@ -3479,10 +3485,16 @@
       "links": {},
       "address": "0xCfEB869F69431e42cdB54A4F4f105C19C080A601",
       "transactionHash": "0x336a7447a942b666c7da8926d87c0e2c291b36f090466d64d02d27769b372f3d"
+    },
+    "1587400231944": {
+      "events": {},
+      "links": {},
+      "address": "0xCfEB869F69431e42cdB54A4F4f105C19C080A601",
+      "transactionHash": "0x336a7447a942b666c7da8926d87c0e2c291b36f090466d64d02d27769b372f3d"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-04-20T04:18:44.520Z",
+  "updatedAt": "2020-04-20T21:56:06.401Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "leodinh",

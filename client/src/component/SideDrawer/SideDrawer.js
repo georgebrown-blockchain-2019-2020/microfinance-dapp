@@ -14,7 +14,7 @@ const sideDrawer = props => {
         <Logo height="11%" />
         <nav className="nav--drawer">
           <NavLink
-            to="/"
+            to="/fund"
             exact
             className="nav__item--drawer"
             activeClassName="nav__item-active--drawer"

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import BackDrop from "./component/BackDrop/BackDrop";
 import Loading from "./assets/image/loading-heart.svg";
-import publicEntryInfo from "./blockchain/publicEntryInfo";
 const UserPage = React.lazy(() => {
   return import("./container/UserPage/UserPage");
 });
@@ -51,8 +50,7 @@ function App(props) {
 }
 const mapStateToProps = state => {
   return {
-    address: state.address,
-    infor: state.infor
+    address: state.address
   };
 };
 export default connect(mapStateToProps)(App);
