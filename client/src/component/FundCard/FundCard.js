@@ -13,7 +13,9 @@ function FundCard(props) {
         <p>{props.reason}</p>
       </div>
       <div className="fund_item_money">
-        <span>{props.value} Ether</span>
+        <span>
+          {props.value} Ether ({props.usdValue} USD)
+        </span>
       </div>
       <button
         className="fund_item_btn"

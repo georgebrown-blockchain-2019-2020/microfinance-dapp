@@ -5,7 +5,8 @@ const initialState = {
   infor: null,
   error: null,
   loading: false,
-  authRedirectPath: "/"
+  authRedirectPath: "/",
+  usdRate: 0
 };
 
 const authStart = (state, action) => {
@@ -30,6 +31,10 @@ const getInforSuccess = (state, action) => {
 const setAuthRedirectPath = (state, action) => {
   return updateObject(state, { authRedirectPath: action.path });
 };
+
+const getUSDRate = (state, action) => {
+  return updateObject(state, { usdRate: action.rate });
+};
 export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -44,6 +49,8 @@ export default (state = initialState, action) => {
       return getInforSuccess(state, action);
     case actionTypes.SET_DIRECT_PATH:
       return setAuthRedirectPath(state, action);
+    case actionTypes.GET_USD_RATE:
+      return getUSDRate(state, action);
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import * as actionTypes from "./actionTypes";
 import Web3 from "web3";
 import { database } from "../../firebase/FireBaseRef";
+const ETHER_SCAN_API =
+  "https://api.etherscan.io/api?module=stats&action=ethprice";
 export const auth = () => {
   return async dispatch => {
     dispatch(authStart());
@@ -9,14 +11,20 @@ export const auth = () => {
       await window.ethereum.enable();
       const accounts = await web3.eth.getAccounts();
       const data = database.ref("infor");
-      await data
-        .orderByChild("userAddr")
-        .equalTo(accounts[0])
-        .on("child_added", function(snapshot) {
-          const data = { ...snapshot.val(), key: snapshot.key };
-          dispatch(getInforSuccess(data));
-          dispatch(setDirectPath("/"));
-        });
+      const getInforData = async () =>
+        await data
+          .orderByChild("userAddr")
+          .equalTo(accounts[0])
+          .once("value");
+      const userInfor = await getInforData();
+      for (let key in userInfor.val()) {
+        const data = { ...userInfor.val()[key], key: key };
+        dispatch(getInforSuccess(data));
+        dispatch(setDirectPath("/"));
+      }
+      let etherScanResponse = await fetch(ETHER_SCAN_API);
+      let rateResult = await etherScanResponse.json();
+      dispatch(getUSDRate(rateResult.result.ethusd));
       dispatch(authSuccess(accounts[0]));
 
       // dispatch(getInforSuccess("Leo"));
@@ -76,5 +84,12 @@ export const setDirectPath = path => {
   return {
     type: actionTypes.SET_DIRECT_PATH,
     path: path
+  };
+};
+
+export const getUSDRate = rate => {
+  return {
+    type: actionTypes.GET_USD_RATE,
+    rate: rate
   };
 };

@@ -13,7 +13,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { database } from "../../firebase/FireBaseRef";
 import { connect } from "react-redux";
-import BN from "bn.js";
+import Decimal from "decimal.js";
+import {
+  convertWeiToUSD,
+  convertWeiToEther,
+  convertEtherToWei,
+  ETHFormatCustom,
+  USDFormatCustom
+} from "../../scripts/utility";
 import {
   requestLoan,
   getStateofDebt,
@@ -29,7 +36,7 @@ import * as actions from "../../store/actions/index";
 import Swal from "sweetalert2";
 import "./AccountPage.scss";
 function AccountPage(props) {
-  const { infor, address, onSetInfor, reduxLoading } = props;
+  const { infor, address, onSetInfor, reduxLoading, usdRate } = props;
   const [information, setInformation] = useState({
     name: "",
     address: "",
@@ -66,7 +73,7 @@ function AccountPage(props) {
         console.log(state);
         if (parseInt(state) === 0) {
           result = {
-            amount: snapshot.val().amount,
+            amount: convertWeiToEther(snapshot.val().amount),
             reason: snapshot.val().reason,
             state: 0,
             lender: "",
@@ -78,10 +85,10 @@ function AccountPage(props) {
           const lender = await getLenderofDebt(snapshot.val().debtNo);
           const interest = await getInterestofDebt(snapshot.val().debtNo);
           result = {
-            amount: snapshot.val().amount,
+            amount: convertWeiToEther(snapshot.val().amount),
             reason: snapshot.val().reason,
             lender: lender,
-            interest: interest,
+            interest: convertWeiToEther(interest),
             state: 1,
             debtNo: snapshot.val().debtNo
           };
@@ -177,8 +184,7 @@ function AccountPage(props) {
   };
   const payDebt = async () => {
     setLoading(true);
-    console.log(new BN(debt.amount));
-    const amount = new BN(debt.amount).add(new BN(debt.interest));
+    const amount = new Decimal(debt.amount).plus(new Decimal(debt.interest));
     console.log(amount.toString());
     console.log(debt.debtNo);
     await payLoan(debt.debtNo, amount.toString());
@@ -240,14 +246,32 @@ function AccountPage(props) {
         <Grid item lg={6} xs={12}>
           <Paper className="account__request">
             <h2>{!!debt.lender ? "Request" : "Debt"}</h2>
-            <TextField
-              label="Eth"
-              variant="outlined"
-              className="account__input"
-              value={debt.amount}
-              onChange={handleChangeDebt("amount")}
-              disabled={debt.state !== -1}
-            />
+            <div className="account__request_amount">
+              <TextField
+                label="Eth"
+                variant="outlined"
+                className="account__input"
+                value={debt.amount}
+                onChange={handleChangeDebt("amount")}
+                disabled={debt.state !== -1}
+                InputProps={{
+                  inputComponent: ETHFormatCustom
+                }}
+                error={debt.amount >= 60}
+                helperText={debt.amount >= 60 && "Too much Ether."}
+              />
+              <TextField
+                label="USD"
+                variant="outlined"
+                className="account__input"
+                value={convertWeiToUSD(convertEtherToWei(debt.amount), usdRate)}
+                disabled
+                InputProps={{
+                  inputComponent: USDFormatCustom
+                }}
+              />
+            </div>
+
             <TextField
               label="Reason"
               variant="outlined"
@@ -293,7 +317,11 @@ function AccountPage(props) {
         <Grid item xs={12}>
           <Paper className="account">
             <h2>
-              Wallet: <span>{walletBalance} ETH</span>
+              Wallet:&nbsp;
+              <span>
+                {convertWeiToEther(walletBalance)} ETH (
+                {convertWeiToUSD(walletBalance, usdRate)} USD)
+              </span>
               <Button
                 variant="contained"
                 className="account__btn--pay"
@@ -353,7 +381,8 @@ const mapStateToProps = state => {
     infor: state.infor,
     reduxLoading: state.loading,
     error: state.error,
-    authRedirectPath: state.authRedirectPath
+    authRedirectPath: state.authRedirectPath,
+    usdRate: state.usdRate
   };
 };
 

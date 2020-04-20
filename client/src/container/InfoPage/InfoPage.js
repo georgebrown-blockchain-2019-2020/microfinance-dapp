@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./InfoPage.scss";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { database } from "../../firebase/FireBaseRef";
 import * as actions from "../../store/actions/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { PhoneFormatCustom } from "../../scripts/utility";
 function InfoPage(props) {
   const {
     infor,
@@ -39,7 +40,6 @@ function InfoPage(props) {
         <h2>Add Your Information</h2>
         <form noValidate autoComplete="off">
           <TextField
-            id="outlined-basic"
             label="Name"
             variant="outlined"
             className="info__input"
@@ -47,7 +47,6 @@ function InfoPage(props) {
             onChange={handleChange("name")}
           />
           <TextField
-            id="outlined-basic"
             label="Address"
             variant="outlined"
             className="info__input"
@@ -55,12 +54,14 @@ function InfoPage(props) {
             onChange={handleChange("address")}
           />
           <TextField
-            id="outlined-basic"
             label="Phone number"
             variant="outlined"
             className="info__input"
             value={information.phone}
             onChange={handleChange("phone")}
+            InputProps={{
+              inputComponent: PhoneFormatCustom
+            }}
           />
         </form>
         <button

@@ -13,8 +13,9 @@ import Loading from "../../component/Loading/Loading";
 import { connect } from "react-redux";
 import "./FundPage.scss";
 import Swal from "sweetalert2";
+import { convertWeiToEther, convertWeiToUSD } from "../../scripts/utility";
 function FundPage(props) {
-  const { address } = props;
+  const { address, usdRate } = props;
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState("");
   const [pageNum, setPageNum] = useState([]);
@@ -45,6 +46,7 @@ function FundPage(props) {
           userAddress: "",
           reason: "",
           value: "",
+          usdValue: "",
           name: "",
           address: "",
           phone: ""
@@ -52,7 +54,8 @@ function FundPage(props) {
         let state = await getStateofDebt(debtsList[key].debtNo);
         if (parseInt(state) === 0) {
           let amount = await getAmountofDebt(debtsList[key].debtNo);
-          item.value = amount;
+          item.value = convertWeiToEther(amount);
+          item.usdValue = convertWeiToUSD(amount, usdRate);
           item.debtNo = debtsList[key].debtNo;
           item.userAddress = borrower;
           item.reason = debtsList[key].reason;
@@ -67,7 +70,7 @@ function FundPage(props) {
       }
     }
     return tempData;
-  }, [address]);
+  }, [address, usdRate]);
   useEffect(() => {
     setLoading(true);
     updateDebtList().then(result => {
@@ -129,6 +132,7 @@ function FundPage(props) {
                   name={item.name}
                   reason={item.reason}
                   value={item.value}
+                  usdValue={item.usdValue}
                   openModel={() =>
                     openInforDetail(item.name, item.address, item.phone)
                   }
@@ -168,8 +172,7 @@ function FundPage(props) {
 const mapStateToProps = state => {
   return {
     address: state.address,
-    reduxLoading: state.loading,
-    error: state.error
+    usdRate: state.usdRate
   };
 };
 export default connect(mapStateToProps)(FundPage);
