@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/microfinance-dapp/precache-manifest.da92cbfb3ad289e82a27c423af1c5bed.js"
+  "/microfinance-dapp/precache-manifest.a942752ea7e44ab922ab00ad5694577f.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "989d42de6c276810289ed414eeb9420d",
+    "revision": "cb3460c5ab571f21f4b6ea28175c7892",
     "url": "/microfinance-dapp/index.html"
   },
   {
