@@ -21,20 +21,16 @@ export const generateString = length => {
 };
 
 export const convertWeiToEther = amount => {
-  console.log(amount);
   return amount === 0 ? 0 : web3.utils.fromWei(amount, "ether");
 };
 
 export const convertWeiToUSD = (amount, rate) => {
   const ether = convertWeiToEther(amount);
-  console.log(ether);
-  console.log(rate);
   const usdAmount = new Decimal(ether).mul(new Decimal(rate));
   return usdAmount.toString();
 };
 
 export const convertEtherToWei = amount => {
-  console.log(amount);
   return !amount ? 0 : web3.utils.toWei(amount, "ether");
 };
 

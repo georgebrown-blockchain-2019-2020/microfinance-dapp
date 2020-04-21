@@ -1,11 +1,13 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "homepage": "http://leodinh.github.io/microfinance-dapp",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "decimal.js": "^10.2.0",
     "firebase": "^7.14.1",
+    "gh-pages": "^2.2.0",
     "node-sass": "^4.13.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
@@ -23,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

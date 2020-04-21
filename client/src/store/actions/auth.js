@@ -9,6 +9,10 @@ export const auth = () => {
     const web3 = new Web3(window.ethereum);
     try {
       await window.ethereum.enable();
+      const testnet = await web3.eth.net.getNetworkType();
+      if(testnet!=="ropsten"){
+        throw new Error("The application is currently on Ropsten testnet");
+      }
       const accounts = await web3.eth.getAccounts();
       const data = database.ref("infor");
       const getInforData = async () =>
@@ -29,7 +33,12 @@ export const auth = () => {
 
       // dispatch(getInforSuccess("Leo"));
     } catch (error) {
-      dispatch(authFail(error.message));
+      if(error.message){
+        dispatch(authFail(error.message));
+      } else {
+        dispatch(authFail(error));
+      }
+      
     }
   };
 };

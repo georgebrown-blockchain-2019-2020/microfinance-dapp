@@ -17,7 +17,6 @@ import { connect } from "react-redux";
 import { generateString } from "../../scripts/utility";
 import { database } from "../../firebase/FireBaseRef";
 function TabPanel(props) {
-  console.log(CouponList);
   const { children, value, index, ...other } = props;
 
   return (
@@ -53,7 +52,6 @@ function CouponPage(props) {
   const [tokenBalance, setTokenBalance] = useState(0);
   const [redeemedCoupons, setRedeemedCoupon] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -65,25 +63,21 @@ function CouponPage(props) {
       .equalTo(userAddr)
       .on("child_added", async function(snapshot) {
         let productInfo = CouponList.filter(coupon => {
-          console.log(coupon.id);
-          console.log(snapshot.val().product);
-          console.log(coupon.id === snapshot.val().product);
           return coupon.id === snapshot.val().product;
         });
-        console.log(snapshot.val());
         let item = {
           product: snapshot.val().product,
           productCode: snapshot.val().productCode,
           image: productInfo[0].image
         };
-        console.log(productInfo);
         setRedeemedCoupon(previousState => [...previousState, item]);
       });
   }, [userAddr]);
   const getCouponCode = async (product, amount) => {
     setLoading(true);
     try {
-      await burnToken(amount);
+      const receipt = await burnToken(amount);
+      console.log(receipt);
       const productCode = product + generateString(5);
       let couponData = { product, productCode, userAddr };
       await database.ref("coupon").push(couponData);
@@ -92,6 +86,7 @@ function CouponPage(props) {
         title: "Redeemed successfully",
         text: `Your coupon code : ${couponData.productCode}`
       });
+      getTokenBalance(userAddr).then(result => setTokenBalance(result));
       setLoading(false);
     } catch (error) {
       Swal.fire({

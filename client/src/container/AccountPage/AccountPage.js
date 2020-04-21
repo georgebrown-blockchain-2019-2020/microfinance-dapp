@@ -205,7 +205,8 @@ function AccountPage(props) {
   const withDrawWallet = async () => {
     setLoading(true);
     try {
-      await withDraw(walletBalance);
+      const receipt = await withDraw(walletBalance);
+      console.log(receipt);
       getWalletBalance(address).then(result => {
         setWalletBalance(result);
       });
