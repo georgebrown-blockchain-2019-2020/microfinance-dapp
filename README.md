@@ -4,11 +4,13 @@ DAPP that facilitates Loan Process, no-required third party based on Ethereum Ne
 
 ## Author
 Author: Nguyen Anh Tuan Dinh.
+
 Student ID: 101201831.
 
 ## Demo
 
 Live Demo: https://leodinh.github.io/microfinance-dapp/ .
+
 Video Demo: https://youtu.be/mS9xzl6gmGc .
 
 ## Problem Statement
