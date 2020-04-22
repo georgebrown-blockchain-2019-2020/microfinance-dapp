@@ -15,7 +15,7 @@ Microfinance is a banking service provided to unemployed or low-income individua
 
 ## Proposed Solution
 
-The emergence of Blockchain is a key to solve any third-party related problem. Lenders and Borrowers can communicate directly, all loan transactions are stored in immutable database.
+The emergence of Blockchain is a key to solve any intermediary-related problem. Lenders and Borrowers can communicate directly, all loan transactions are stored in immutable database.
 The comparision of non-Blockchain and Blockchain solution :
 | Non-Blockchain | Blockchain |
 |----------------|------------|
