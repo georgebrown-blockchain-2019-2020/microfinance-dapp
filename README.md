@@ -1,6 +1,7 @@
 # DeMicroFi - Decentralized Micro Finance Loan - (DAPP2 Project in George Brown College)
 
 DAPP that facilitates Loan Process, no-required third party based on Ethereum Network. It has a mecharnism to incentive good behaviour by giving users heart token which can be used to redeem coupon.
+
 [DeMicroFi Pitch Presentation](https://slides.com/leodinh/deck)
 
 ## Author
